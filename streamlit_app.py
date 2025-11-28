@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 import os
 import bcrypt
+import plotly.express as px
 
 
 load_dotenv()  # reads variables from a .env file and sets them in os.environ
@@ -308,6 +309,23 @@ def main():
                     st.subheader("📊 Query Results")
                     st.success(f"✅ Query returned {len(df)} rows")
                     st.dataframe(df, width="stretch")
+
+                    st.subheader("Dynamic Visualization")
+            
+                    # Automatically pick numeric columns for y-axis
+                    numeric_cols = df.select_dtypes(include=['int64', 'float64']).columns.tolist()
+                    
+                    # Automatically pick first non-numeric column for x-axis (categorical)
+                    categorical_cols = df.select_dtypes(exclude=['int64', 'float64']).columns.tolist()
+                    
+                    if numeric_cols and categorical_cols:
+                        x_col = categorical_cols[0]
+                        y_col = numeric_cols[0]
+                        
+                        fig = px.bar(df, x=x_col, y=y_col, title=f"{y_col} by {x_col}")
+                        st.plotly_chart(fig)
+                    else:
+                        st.warning("Not enough numeric/categorical columns to plot.")
 
 
     if st.session_state.query_history:
