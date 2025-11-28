@@ -12,7 +12,8 @@ import plotly.express as px
 load_dotenv()  # reads variables from a .env file and sets them in os.environ
 
 
-OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") #st.secrets["OPENAI_API_KEY"]
+HASHED_PASSWORD = os.getenv("HASHED_PASSWORD").encode("utf-8")
 
 
 # Database schema for context
