@@ -1,0 +1,41 @@
+type	name	tbl_name	rootpage	sql
+table	Region	Region	2	"CREATE TABLE Region (
+    RegionID INTEGER PRIMARY KEY,
+    Region TEXT NOT NULL
+  )"
+table	Country	Country	3	"CREATE TABLE Country (
+    CountryID INTEGER PRIMARY KEY,
+    Country TEXT NOT NULL,
+    RegionID INTEGER NOT NULL,
+    FOREIGN KEY (RegionID) REFERENCES Region(RegionID)
+  )"
+table	Customer	Customer	4	"CREATE TABLE Customer (
+    CustomerID integer primary key,
+    FirstName text not null,
+    LastName text not null,
+    Address text not null,
+    City text not null,
+    CountryID integer not null,
+    FOREIGN KEY (CountryID) REFERENCES Country(CountryID)
+  )"
+table	ProductCategory	ProductCategory	7	"CREATE TABLE ProductCategory (
+    ProductCategoryID integer primary key,
+    ProductCategory text not null,
+    ProductCategoryDescription text not null
+  )"
+table	Product	Product	8	"CREATE TABLE Product(
+    ProductID integer primary key,
+    ProductName text not null,
+    ProductUnitPrice real not null,
+    ProductCategoryID integer not null,
+    FOREIGN KEY (ProductCategoryID) REFERENCES ProductCategory(ProductCategoryID)
+  )"
+table	OrderDetail	OrderDetail	9	"CREATE TABLE OrderDetail (
+    OrderID integer primary key,
+    CustomerID integer not null,
+    ProductID integer not null,
+    OrderDate integer not null,
+    QuantityOrdered integer not null,
+    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
+  )"
