@@ -11,8 +11,7 @@ import bcrypt
 load_dotenv()  # reads variables from a .env file and sets them in os.environ
 
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") #st.secrets["OPENAI_API_KEY"]
-HASHED_PASSWORD = os.getenv("HASHED_PASSWORD").encode("utf-8")
+OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 
 
 # Database schema for context
@@ -122,10 +121,10 @@ def require_login():
 
 @st.cache_resource
 def get_db_url():
-    POSTGRES_USERNAME = os.getenv("POSTGRES_USERNAME")  #st.secrets["POSTGRES_USERNAME"]
-    POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")  #st.secrets["POSTGRES_PASSWORD"]
-    POSTGRES_SERVER = os.getenv("POSTGRES_SERVER")  #st.secrets["POSTGRES_SERVER"]
-    POSTGRES_DATABASE = os.getenv("POSTGRES_DATABASE")  #st.secrets["POSTGRES_DATABASE"]
+    POSTGRES_USERNAME =   st.secrets["POSTGRES_USERNAME"]
+    POSTGRES_PASSWORD =   st.secrets["POSTGRES_PASSWORD"]
+    POSTGRES_SERVER =   st.secrets["POSTGRES_SERVER"]
+    POSTGRES_DATABASE =   st.secrets["POSTGRES_DATABASE"]
 
     DATABASE_URL = f"postgresql://{POSTGRES_USERNAME}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}/{POSTGRES_DATABASE}"
 
