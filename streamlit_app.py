@@ -82,7 +82,7 @@ IMPORTANT NOTES:
 
 def login_screen():
     """Display login screen and authenticate user."""
-    st.title("🔐 Secure Login")
+    st.title("🔐 Secure Login 🥷")
     st.markdown("---")
     st.write("Enter your password to access the AI SQL Query Assistant.")
     
@@ -174,20 +174,20 @@ def generate_sql_with_gpt(user_question):
     client = get_openai_client()
     prompt = f"""You are a PostgreSQL expert. Given the following database schema and a user's question, generate a valid PostgreSQL query.
 
-{DATABASE_SCHEMA}
+                {DATABASE_SCHEMA}
 
-User Question: {user_question}
+                User Question: {user_question}
 
-Requirements:
-1. Generate ONLY the SQL query that I can directly use. No other response.
-2. Use proper JOINs to get descriptive names from lookup tables
-3. Use appropriate aggregations (COUNT, AVG, SUM, etc.) when needed
-4. Add LIMIT clauses for queries that might return many rows (default LIMIT 100)
-5. Use proper date/time functions for TIMESTAMP columns
-6. Make sure the query is syntactically correct for PostgreSQL
-7. Add helpful column aliases using AS
+                Requirements:
+                1. Generate ONLY the SQL query that I can directly use. No other response.
+                2. Use proper JOINs to get descriptive names from lookup tables
+                3. Use appropriate aggregations (COUNT, AVG, SUM, etc.) when needed
+                4. Add LIMIT clauses for queries that might return many rows (default LIMIT 100)
+                5. Use proper date/time functions for TIMESTAMP columns
+                6. Make sure the query is syntactically correct for PostgreSQL
+                7. Add helpful column aliases using AS
 
-Generate the SQL query:"""
+                Generate the SQL query:"""
 
     try:
         response = client.chat.completions.create(
@@ -311,7 +311,7 @@ def main():
                     st.success(f"✅ Query returned {len(df)} rows")
                     st.dataframe(df, width="stretch")
 
-                    st.subheader("Dynamic Visualization")
+                    st.subheader("📈 Visualization")
             
                     # Automatically pick numeric columns for y-axis
                     numeric_cols = df.select_dtypes(include=['int64', 'float64']).columns.tolist()
@@ -323,7 +323,7 @@ def main():
                         x_col = categorical_cols[0]
                         y_col = numeric_cols[0]
                         
-                        fig = px.bar(df, x=x_col, y=y_col, title=f"{y_col} by {x_col}")
+                        fig = px.bar(df, x=x_col, y=y_col, title=f"{y_col}  by  {x_col}")
                         st.plotly_chart(fig)
                     else:
                         st.warning("Not enough numeric/categorical columns to plot.")
